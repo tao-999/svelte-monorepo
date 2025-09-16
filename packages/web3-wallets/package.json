@@ -1,26 +1,27 @@
 {
   "name": "@svelte-kits/web3-wallets",
-  "version": "0.0.0",
-  "description": "web3-wallets (skeleton)",
+  "version": "0.1.0",
+  "description": "Headless Web3 wallets core for EIP-1193: connectors, auto-connect, chain switch/add, signing, tx, and events.",
   "type": "module",
-  "svelte": "./src/index.ts",
   "exports": {
     ".": {
-      "svelte": "./src/index.ts",
-      "import": "./src/index.ts"
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
     }
   },
-  "types": "./src/index.ts",
-  "files": ["src", "README.md"],
+  "types": "./dist/index.d.ts",
+  "files": ["dist", "README.md"],
+  "sideEffects": false,
   "license": "MIT",
-  "publishConfig": { "access": "public" },
+  "keywords": ["web3", "wallet", "eip-1193", "metamask", "walletconnect", "coinbase"],
   "scripts": {
-    "build": "tsc -p tsconfig.json --outDir dist && echo build-placeholder",
-    "dev": "echo dev-placeholder (use apps/playground)",
+    "clean": "node -e \"try{require('fs').rmSync('dist',{recursive:true,force:true})}catch{}\"",
+    "build": "tsc -p tsconfig.json",
     "test": "echo no-tests"
   },
   "devDependencies": {
-    "svelte": "^5.0.0",
     "typescript": "^5.6.2"
-  }
+  },
+  "engines": { "node": ">=18" },
+  "publishConfig": { "access": "public" }
 }
