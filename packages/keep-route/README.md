@@ -51,6 +51,9 @@ pnpm add @svelte-kits/keep-route
 <slot />
 ```
 
+> ✅ **SvelteKit v2 兼容说明**
+> `wireSvelteKit` 内部会自动从事件对象的 `e.from?.url / e.to?.url` 提取 `URL`，同时兼容旧形态（直接传 `URL`）。你无需自己做类型转换。
+
 ### 2) 在页面或组件上声明“我需要被保活的状态”
 
 ```svelte
@@ -128,7 +131,7 @@ import {
 - `current: Readable<RouteKey | null>`：当前命中的路由键（调试用）
 
 ### `wireSvelteKit(keep, wiring)`
-把 keep 实例接到 SvelteKit：
+把 keep 实例接到 SvelteKit（**v2 事件形态**）：
 ```ts
 wireSvelteKit(keep, {
   page,                  // $app/stores -> page
@@ -136,6 +139,17 @@ wireSvelteKit(keep, {
   afterNavigate,         // $app/navigation
   key?: (url: URL) => string // 可自定义路由键（默认 pathname+search）
 });
+```
+
+**类型提示（说明用）**
+```ts
+type Wiring = {
+  page: import('svelte/store').Readable<{ url: URL }>;
+  // SvelteKit v2 的事件；库内会从 e.from?.url / e.to?.url 提取 URL
+  beforeNavigate: (cb: (e: import('@sveltejs/kit').BeforeNavigate) => void) => void;
+  afterNavigate:  (cb: (e: import('@sveltejs/kit').AfterNavigate)  => void) => void;
+  key?: (url: URL) => RouteKey;
+};
 ```
 
 ### `makeKeepState(keep): Action<HTMLElement, KeepStateParam>`
@@ -211,6 +225,9 @@ A：有 **LRU**。超过 `max` 就自动淘汰最久未使用的路由缓存。
 **Q：同一路由的不同查询要不要区分？**
 A：默认 **区分**（`pathname+search`）；可自定义 key 只按 `pathname`。
 
+**Q：导航事件类型不匹配，TS 报错？**
+A：升级到本版（内置 v2 兼容），并按本文的 `wireSvelteKit` 用法接线即可；库内会自动从 `e.from?.url / e.to?.url` 提取 `URL`，无需你转型。
+
 **Q：组件卸载/重新挂载时如何避免冲突？**
 A：`use:keepState` 在组件销毁时自动注销；同一路由 id 要保持唯一。
 
@@ -227,6 +244,7 @@ A：`use:keepState` 在组件销毁时自动注销；同一路由 id 要保持�
 ## 变更日志 & 路线图
 
 - v0.1.0：首发，状态快照 + 滚动恢复 + include/exclude + LRU + 持久化
+- v0.1.1：**SvelteKit v2 导航事件类型兼容**（自动识别 `e.from?.url / e.to?.url`），初始订阅时自动做一次 restore
 - 计划：按模块导出 Dev 面板（可视化当前缓存路由/快照大小）、每路由限速持久化、跨标签同步
 
 ---
