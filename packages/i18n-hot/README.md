@@ -1,4 +1,4 @@
-# @svelte-kits/i18n-hot
+# @sv-kit/i18n-hot
 
 **Svelte/SvelteKit 的热更新 i18n**：远端 Manifest + 304/ETag 校验 + 本地缓存 + Svelte stores。
 不绑框架路由、零第三方依赖，支持懒加载、预加载、占位符校验与自动刷新。🈶🔥
@@ -16,7 +16,7 @@
 ## 安装
 
 ```bash
-pnpm add @svelte-kits/i18n-hot
+pnpm add @sv-kit/i18n-hot
 # or npm i / yarn add
 ```
 
@@ -61,7 +61,7 @@ pnpm add @svelte-kits/i18n-hot
 
 ```svelte
 <script lang="ts">
-  import { createI18nHot, HttpJsonAdapter } from "@svelte-kits/i18n-hot";
+  import { createI18nHot, HttpJsonAdapter } from "@sv-kit/i18n-hot";
 
   const i18n = createI18nHot({
     adapter: new HttpJsonAdapter({ manifestURL: "/i18n/manifest.json" }),
@@ -101,8 +101,8 @@ pnpm add @svelte-kits/i18n-hot
 ## API 参考
 
 ```ts
-import { createI18nHot, HttpJsonAdapter } from "@svelte-kits/i18n-hot";
-import type { Dict, I18nAdapter, I18nHotOptions, Snapshot } from "@svelte-kits/i18n-hot";
+import { createI18nHot, HttpJsonAdapter } from "@sv-kit/i18n-hot";
+import type { Dict, I18nAdapter, I18nHotOptions, Snapshot } from "@sv-kit/i18n-hot";
 ```
 
 ### `createI18nHot(options: I18nHotOptions)`
@@ -136,7 +136,7 @@ import type { Dict, I18nAdapter, I18nHotOptions, Snapshot } from "@svelte-kits/i
 ## 默认适配器：`HttpJsonAdapter`
 
 ```ts
-import { HttpJsonAdapter } from "@svelte-kits/i18n-hot";
+import { HttpJsonAdapter } from "@sv-kit/i18n-hot";
 
 const adapter = new HttpJsonAdapter({
   manifestURL: "/i18n/manifest.json",
@@ -164,7 +164,7 @@ export interface I18nAdapter {
 
 **+layout.server.ts**
 ```ts
-import { createI18nHot, HttpJsonAdapter } from "@svelte-kits/i18n-hot";
+import { createI18nHot, HttpJsonAdapter } from "@sv-kit/i18n-hot";
 
 export const load = async () => {
   const i18n = createI18nHot({
@@ -181,7 +181,7 @@ export const load = async () => {
 **+layout.svelte**
 ```svelte
 <script lang="ts">
-  import { createI18nHot, HttpJsonAdapter } from "@svelte-kits/i18n-hot";
+  import { createI18nHot, HttpJsonAdapter } from "@sv-kit/i18n-hot";
   export let data;
 
   const i18n = createI18nHot({

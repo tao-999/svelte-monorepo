@@ -1,6 +1,6 @@
 {
-  "name": "@svelte-kits/i18n-hot",
-  "version": "0.1.0",
+  "name": "@sv-kit/i18n-hot",
+  "version": "1.0.0",
   "description": "Hot-updatable i18n for Svelte: remote manifest, ETag/version checks, local cache, and Svelte stores.",
   "type": "module",
   "exports": {
@@ -10,10 +10,20 @@
     }
   },
   "types": "./dist/index.d.ts",
-  "files": ["dist", "README.md"],
+  "files": [
+    "dist",
+    "README.md"
+  ],
   "sideEffects": false,
   "license": "MIT",
-  "keywords": ["svelte", "i18n", "internationalization", "localization", "hot-reload", "translations"],
+  "keywords": [
+    "svelte",
+    "i18n",
+    "internationalization",
+    "localization",
+    "hot-reload",
+    "translations"
+  ],
   "scripts": {
     "build": "tsc -p tsconfig.json",
     "dev": "echo use apps/playground for demos",

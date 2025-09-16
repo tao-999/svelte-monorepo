@@ -1,4 +1,4 @@
-# @svelte-kits/uploader-pro
+# @sv-kit/uploader-pro
 
 分片 / 断点续传 / 秒传（Merkle Hash）/ 并发与重试；**可直传任意云**，通过“适配器（adapter）”切换后端协议。
 自带两套适配器：**HTTP 分片（自有后端）**、**S3 兼容多段（S3/R2/Spaces/MinIO/Ceph …）**。
@@ -20,7 +20,7 @@
 ## 📦 安装
 
 ```bash
-pnpm add @svelte-kits/uploader-pro
+pnpm add @sv-kit/uploader-pro
 # or: npm i / yarn add
 ```
 
@@ -33,7 +33,7 @@ import {
   UploadTask,
   HttpMultipartAdapter,
   S3MultipartAdapter
-} from "@svelte-kits/uploader-pro";
+} from "@sv-kit/uploader-pro";
 
 // 方案 A：自有后端分片（最通用、最可控）
 const http = new HttpMultipartAdapter({ baseURL: "/api" });

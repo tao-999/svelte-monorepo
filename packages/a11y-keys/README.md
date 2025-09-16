@@ -1,4 +1,4 @@
-# @svelte-kits/a11y-keys
+# @sv-kit/a11y-keys
 
 Composable a11y helpers for Svelte：**roving focus**（罗盘式焦点）、**focus trap**（焦点陷阱）、**keyboard shortcuts**（快捷键）、**screen-reader announcer**（读屏播报）。
 零依赖、可组合、SSR 安全，适配 Svelte 4/5。🧩♿
@@ -15,7 +15,7 @@ Composable a11y helpers for Svelte：**roving focus**（罗盘式焦点）、**f
 ## 安装
 
 ```bash
-pnpm add @svelte-kits/a11y-keys
+pnpm add @sv-kit/a11y-keys
 # 或 npm i / yarn add
 ```
 
@@ -29,7 +29,7 @@ pnpm add @svelte-kits/a11y-keys
 
 ```svelte
 <script lang="ts">
-  import { rovingFocus } from '@svelte-kits/a11y-keys';
+  import { rovingFocus } from '@sv-kit/a11y-keys';
 </script>
 
 <ul use:rovingFocus={{ selector: '[data-roving]', orientation: 'horizontal' }} role="toolbar" aria-label="Formatting">
@@ -48,7 +48,7 @@ pnpm add @svelte-kits/a11y-keys
 
 ```svelte
 <script lang="ts">
-  import { focusTrap } from '@svelte-kits/a11y-keys';
+  import { focusTrap } from '@sv-kit/a11y-keys';
   let open = true;
 </script>
 
@@ -75,7 +75,7 @@ pnpm add @svelte-kits/a11y-keys
 
 ```svelte
 <script lang="ts">
-  import { shortcut } from '@svelte-kits/a11y-keys';
+  import { shortcut } from '@sv-kit/a11y-keys';
 
   const map = {
     'Ctrl+K': () => (open = true),
@@ -97,7 +97,7 @@ pnpm add @svelte-kits/a11y-keys
 
 ```svelte
 <script lang="ts">
-  import { createAnnouncer } from '@svelte-kits/a11y-keys';
+  import { createAnnouncer } from '@sv-kit/a11y-keys';
   const sr = createAnnouncer();
   function save() {
     // ...保存逻辑

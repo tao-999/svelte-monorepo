@@ -1,4 +1,4 @@
-# @svelte-kits/keep-route
+# @sv-kit/keep-route
 
 **SvelteKit 的“路由级保活（Keep-Alive）”插件**：缓存每个路由的**组件状态快照**与**滚动位置**，切路由来回不丢表单、不丢分页、不丢滚动。支持 **include/exclude**、**LRU 上限**、**本地持久化**，零第三方依赖。🧠💾
 
@@ -16,7 +16,7 @@
 ## 安装
 
 ```bash
-pnpm add @svelte-kits/keep-route
+pnpm add @sv-kit/keep-route
 # or npm i / yarn add
 ```
 
@@ -28,7 +28,7 @@ pnpm add @svelte-kits/keep-route
 
 ```svelte
 <script lang="ts">
-  import { createKeepRoute, wireSvelteKit, makeKeepState } from '@svelte-kits/keep-route';
+  import { createKeepRoute, wireSvelteKit, makeKeepState } from '@sv-kit/keep-route';
   import { page } from '$app/stores';
   import { beforeNavigate, afterNavigate } from '$app/navigation';
 
@@ -113,7 +113,7 @@ pnpm add @svelte-kits/keep-route
 import {
   createKeepRoute, wireSvelteKit, makeKeepState,
   type KeepRouteOptions, type KeepInstance, type KeepStateParam, type RouteKey
-} from '@svelte-kits/keep-route';
+} from '@sv-kit/keep-route';
 ```
 
 ### `createKeepRoute(options?: KeepRouteOptions): KeepInstance`

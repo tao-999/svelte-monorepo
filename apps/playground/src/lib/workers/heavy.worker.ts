@@ -1,4 +1,4 @@
-import { expose } from '@svelte-kits/workerify';
+import { expose } from '@sv-kit/workerify';
 
 /** 计数 ≤ limit 的素数个数（只筛奇数，提高速度与内存效率） */
 export function countPrimes(limit: number): number {

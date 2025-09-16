@@ -1,6 +1,6 @@
 {
-  "name": "@svelte-kits/uploader-pro",
-  "version": "0.1.0",
+  "name": "@sv-kit/uploader-pro",
+  "version": "1.0.0",
   "description": "Chunked/resumable uploads with hash-based instant upload and adapters (HTTP multipart & S3/R2 presigned).",
   "type": "module",
   "exports": {
@@ -10,9 +10,14 @@
     }
   },
   "types": "./dist/index.d.ts",
-  "files": ["dist", "README.md"],
+  "files": [
+    "dist",
+    "README.md"
+  ],
   "license": "MIT",
-  "publishConfig": { "access": "public" },
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
     "build": "tsc -p tsconfig.json",
     "test": "echo no-tests"

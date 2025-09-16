@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { createI18nHot, HttpJsonAdapter } from '@svelte-kits/i18n-hot';
+  import { createI18nHot, HttpJsonAdapter } from '@sv-kit/i18n-hot';
 
   const { t, setLocale, version, locale, dict } = createI18nHot({
     adapter: new HttpJsonAdapter({ manifestURL: '/i18n/manifest.json' }),

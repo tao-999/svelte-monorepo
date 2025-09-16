@@ -16,7 +16,7 @@ export function wrap<T extends Record<string, AnyFn>>(
   opts?: WrapOptions
 ): Wrapped<{ [K in keyof T]: (...a: Parameters<T[K]>) => Promise<Awaited<ReturnType<T[K]>>> }> {
   if (typeof window === "undefined") {
-    throw new Error("@svelte-kits/workerify: wrap() must run in browser/worker thread");
+    throw new Error("@sv-kit/workerify: wrap() must run in browser/worker thread");
   }
   const worker = new Worker(url, { type: opts?.type ?? "module", name: opts?.name });
 

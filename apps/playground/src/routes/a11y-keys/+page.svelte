@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { rovingFocus, focusTrap, shortcut } from '@svelte-kits/a11y-keys';
+  import { rovingFocus, focusTrap, shortcut } from '@sv-kit/a11y-keys';
 
   // 用 aria-pressed 让 SR 自动播报，不再手动 announce
   let bold = false, italic = false, underline = false;

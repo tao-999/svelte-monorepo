@@ -1,6 +1,6 @@
 {
-  "name": "@svelte-kits/keep-route",
-  "version": "0.1.0",
+  "name": "@sv-kit/keep-route",
+  "version": "1.0.0",
   "description": "Route keep-alive for SvelteKit: per-route state snapshots, scroll restoration, include/exclude and LRU.",
   "type": "module",
   "exports": {
@@ -10,10 +10,19 @@
     }
   },
   "types": "./dist/index.d.ts",
-  "files": ["dist", "README.md"],
+  "files": [
+    "dist",
+    "README.md"
+  ],
   "sideEffects": false,
   "license": "MIT",
-  "keywords": ["svelte", "sveltekit", "keep-alive", "route cache", "scroll restoration"],
+  "keywords": [
+    "svelte",
+    "sveltekit",
+    "keep-alive",
+    "route cache",
+    "scroll restoration"
+  ],
   "scripts": {
     "clean": "node -e \"try{require('fs').rmSync('dist',{recursive:true,force:true})}catch{}\"",
     "build": "tsc -p tsconfig.json",

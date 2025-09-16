@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { QueryClient, httpJSON, type QueryKey } from '@svelte-kits/query-kit';
+  import { QueryClient, httpJSON, type QueryKey } from '@sv-kit/query-kit';
 
   type Post = { userId: number; id: number; title: string; body: string };
 

@@ -1,4 +1,4 @@
-# @svelte-kits/workerify
+# @sv-kit/workerify
 
 轻量 **Web Worker RPC 工具**（零依赖）：
 - 在 **Worker** 里 `expose({ foo(){...} })` 暴露方法
@@ -8,13 +8,13 @@
 
 ## 安装
 ```bash
-pnpm add @svelte-kits/workerify
+pnpm add @sv-kit/workerify
 ```
 
 ## 用法 1：多方法模块（推荐）
 **worker.ts**
 ```ts
-import { expose } from '@svelte-kits/workerify';
+import { expose } from '@sv-kit/workerify';
 
 function sha256(buf: ArrayBuffer, { signal }: { signal: AbortSignal }) {
   signal.throwIfAborted?.();
@@ -31,7 +31,7 @@ expose({ sha256, heavySum });
 
 **主线程**
 ```ts
-import { wrap } from '@svelte-kits/workerify';
+import { wrap } from '@sv-kit/workerify';
 
 const api = wrap<typeof import('./worker')>('/workers/worker.js', { name: 'calc' });
 
@@ -48,7 +48,7 @@ api.terminate(); // 用完销毁
 
 ## 用法 2：单函数 worker（动态 Blob）
 ```ts
-import { workerify } from '@svelte-kits/workerify';
+import { workerify } from '@sv-kit/workerify';
 
 const fib = workerify((n: number) => {
   const f = (x: number): number => x <= 1 ? x : f(x-1) + f(x-2);

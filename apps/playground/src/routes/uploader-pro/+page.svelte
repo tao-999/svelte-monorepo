@@ -53,7 +53,7 @@
   async function ensureHasher() {
     if (hasher) return;
     try {
-      const mod: any = await import('@svelte-kits/uploader-pro');
+      const mod: any = await import('@sv-kit/uploader-pro');
       hasher =
         mod.merkleFileHash ||
         mod.computeFileMerkle ||

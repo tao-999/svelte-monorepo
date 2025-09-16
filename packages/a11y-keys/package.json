@@ -1,6 +1,6 @@
 {
-  "name": "@svelte-kits/a11y-keys",
-  "version": "0.1.0",
+  "name": "@sv-kit/a11y-keys",
+  "version": "1.0.0",
   "description": "Composable a11y helpers for Svelte: roving focus, focus trap, keyboard shortcuts, and screen-reader announcements.",
   "type": "module",
   "exports": {
@@ -10,7 +10,10 @@
     }
   },
   "types": "./dist/index.d.ts",
-  "files": ["dist", "README.md"],
+  "files": [
+    "dist",
+    "README.md"
+  ],
   "sideEffects": false,
   "license": "MIT",
   "keywords": [

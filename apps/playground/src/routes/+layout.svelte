@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { createKeepRoute, wireSvelteKit } from '@svelte-kits/keep-route';
+  import { createKeepRoute, wireSvelteKit } from '@sv-kit/keep-route';
   import { page } from '$app/stores';
   import { beforeNavigate, afterNavigate } from '$app/navigation';
 

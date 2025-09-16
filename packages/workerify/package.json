@@ -1,6 +1,6 @@
 {
-  "name": "@svelte-kits/workerify",
-  "version": "0.1.0",
+  "name": "@sv-kit/workerify",
+  "version": "1.0.0",
   "description": "Headless Web Worker RPC: wrap(url), workerify(fn), expose(api). Abort, transferables, and typed proxies.",
   "type": "module",
   "exports": {
@@ -10,10 +10,20 @@
     }
   },
   "types": "./dist/index.d.ts",
-  "files": ["dist", "README.md"],
+  "files": [
+    "dist",
+    "README.md"
+  ],
   "sideEffects": false,
   "license": "MIT",
-  "keywords": ["web-worker", "rpc", "abort", "transferable", "svelte", "headless"],
+  "keywords": [
+    "web-worker",
+    "rpc",
+    "abort",
+    "transferable",
+    "svelte",
+    "headless"
+  ],
   "scripts": {
     "clean": "node -e \"try{require('fs').rmSync('dist',{recursive:true,force:true})}catch{}\"",
     "build": "tsc -p tsconfig.json",
@@ -22,6 +32,10 @@
   "devDependencies": {
     "typescript": "^5.6.2"
   },
-  "engines": { "node": ">=18" },
-  "publishConfig": { "access": "public" }
+  "engines": {
+    "node": ">=18"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
 }

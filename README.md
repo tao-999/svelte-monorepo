@@ -10,12 +10,12 @@
 
 > 这里只是用途概览，不展开每个包的 API 示例（详见各自的 `README.md`）。
 
-- **@svelte-kits/a11y-keys** — 无依赖的可访问性动作合集：`rovingFocus`、`focusTrap`、`shortcut`、读屏播报器等（Action 内置类型，避免 `svelte/action` 依赖）。
-- **@svelte-kits/i18n-hot** — i18n 热更新内核：远端 Manifest + ETag/304 差量拉取 + 本地缓存 + Svelte stores（也可纯 TS 使用）。
-- **@svelte-kits/keep-route** — 路由级保活：为页面/组件生成状态快照并在返回时恢复，含滚动定位、include/exclude、LRU 与可选持久化。
-- **@svelte-kits/query-kit** — 无 UI 查询/缓存内核：并发去重、SWR、TTL/GC、重试退避、取消、失效、预取与 SSR 持久化。
-- **@svelte-kits/uploader-pro** — 弹性上传器：断点续传、分片/并发、去重与校验、持久化任务；内置 S3/HTTP 适配器，可扩展其他云。
-- **@svelte-kits/workerify** — 轻量 Worker RPC：`expose()`/`wrap()`/`workerify(fn)`，支持 Abort 取消、错误序列化与 Transferable 自动收集。
+- **@sv-kit/a11y-keys** — 无依赖的可访问性动作合集：`rovingFocus`、`focusTrap`、`shortcut`、读屏播报器等（Action 内置类型，避免 `svelte/action` 依赖）。
+- **@sv-kit/i18n-hot** — i18n 热更新内核：远端 Manifest + ETag/304 差量拉取 + 本地缓存 + Svelte stores（也可纯 TS 使用）。
+- **@sv-kit/keep-route** — 路由级保活：为页面/组件生成状态快照并在返回时恢复，含滚动定位、include/exclude、LRU 与可选持久化。
+- **@sv-kit/query-kit** — 无 UI 查询/缓存内核：并发去重、SWR、TTL/GC、重试退避、取消、失效、预取与 SSR 持久化。
+- **@sv-kit/uploader-pro** — 弹性上传器：断点续传、分片/并发、去重与校验、持久化任务；内置 S3/HTTP 适配器，可扩展其他云。
+- **@sv-kit/workerify** — 轻量 Worker RPC：`expose()`/`wrap()`/`workerify(fn)`，支持 Abort 取消、错误序列化与 Transferable 自动收集。
 
 ---
 

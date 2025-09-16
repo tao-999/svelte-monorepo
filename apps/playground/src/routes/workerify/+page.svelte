@@ -19,7 +19,7 @@
   onMount(async () => {
     if (!browser) return;
     try {
-      const { wrap } = await import('@svelte-kits/workerify');
+      const { wrap } = await import('@sv-kit/workerify');
 
       // ✅ 用 ?url 让 Vite 产出可访问的最终 URL（避免 /src/... 404）
       const hashUrl  = (await import('$lib/workers/hash.worker.ts?url')).default;

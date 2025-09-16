@@ -7,11 +7,11 @@ export function workerify<T extends (...args: any[]) => any>(
   { name = "workerify:fn" }: { name?: string } = {}
 ) {
   if (typeof window === "undefined") {
-    throw new Error("@svelte-kits/workerify: workerify(fn) must run in browser");
+    throw new Error("@sv-kit/workerify: workerify(fn) must run in browser");
   }
   // 生成一段内联 Worker 代码（ESM）
   const src = `
-    import { expose } from '${/* 同包内相对路径在打包后为同模块名 */ ""}@svelte-kits/workerify';
+    import { expose } from '${/* 同包内相对路径在打包后为同模块名 */ ""}@sv-kit/workerify';
     const __FN__ = (${fn.toString()});
     expose({ default: __FN__ });
   `.trim();

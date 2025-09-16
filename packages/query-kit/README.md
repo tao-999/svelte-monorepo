@@ -1,4 +1,4 @@
-# @svelte-kits/query-kit
+# @sv-kit/query-kit
 
 **无 UI 的查询/缓存核心库**：去重并发、SWR（stale-while-revalidate）、TTL/GC、重试退避、Abort 取消、预取、失效、持久化快照（hydrate/dehydrate）。
 零第三方依赖，纯 TypeScript，可配任何上层（Svelte/React/Node 都能用）。🧠⚡
@@ -18,7 +18,7 @@
 ## 安装
 
 ```bash
-pnpm add @svelte-kits/query-kit
+pnpm add @sv-kit/query-kit
 # 或 npm / yarn
 ```
 
@@ -27,7 +27,7 @@ pnpm add @svelte-kits/query-kit
 ## 快速上手
 
 ```ts
-import { QueryClient, httpJSON } from "@svelte-kits/query-kit";
+import { QueryClient, httpJSON } from "@sv-kit/query-kit";
 
 const qc = new QueryClient({
   staleTime: 10_000,                 // 命中 10s 内不重新请求
@@ -81,11 +81,11 @@ qc.hydrate(snap);
 ## API 参考
 
 ```ts
-import { QueryClient, httpJSON, stableHash } from "@svelte-kits/query-kit";
+import { QueryClient, httpJSON, stableHash } from "@sv-kit/query-kit";
 import type {
   QueryKey, QueryOptions, Fetcher, RetryPolicy, Match,
   DehydratedState, QueryEvent
-} from "@svelte-kits/query-kit";
+} from "@sv-kit/query-kit";
 ```
 
 ### `class QueryClient(defaults?)`
