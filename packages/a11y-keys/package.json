@@ -1,26 +1,45 @@
 {
   "name": "@svelte-kits/a11y-keys",
-  "version": "0.0.0",
-  "description": "a11y-keys (skeleton)",
+  "version": "0.1.0",
+  "description": "Composable a11y helpers for Svelte: roving focus, focus trap, keyboard shortcuts, and screen-reader announcements.",
   "type": "module",
-  "svelte": "./src/index.ts",
   "exports": {
     ".": {
-      "svelte": "./src/index.ts",
-      "import": "./src/index.ts"
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
     }
   },
-  "types": "./src/index.ts",
-  "files": ["src", "README.md"],
+  "types": "./dist/index.d.ts",
+  "files": ["dist", "README.md"],
+  "sideEffects": false,
   "license": "MIT",
-  "publishConfig": { "access": "public" },
+  "keywords": [
+    "svelte",
+    "a11y",
+    "accessibility",
+    "keyboard",
+    "shortcut",
+    "focus-trap",
+    "roving-focus",
+    "screen-reader"
+  ],
   "scripts": {
-    "build": "tsc -p tsconfig.json --outDir dist && echo build-placeholder",
-    "dev": "echo dev-placeholder (use apps/playground)",
+    "clean": "rimraf dist || rm -rf dist",
+    "build": "tsc -p tsconfig.json",
+    "dev": "echo use apps/playground for demos",
     "test": "echo no-tests"
+  },
+  "peerDependencies": {
+    "svelte": "^4.0.0 || ^5.0.0"
   },
   "devDependencies": {
     "svelte": "^5.0.0",
     "typescript": "^5.6.2"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }
