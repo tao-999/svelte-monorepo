@@ -1,0 +1,7 @@
+{
+  "version": "demo-1",
+  "locales": {
+    "en":   { "url": "/i18n/en.json" },
+    "zh-CN": { "url": "/i18n/zh-CN.json" }
+  }
+}

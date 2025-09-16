@@ -2,6 +2,9 @@
   "extends": "./.svelte-kit/tsconfig.json",
   "compilerOptions": {
     "strict": true,
-    "types": ["vite/client"]
+    "moduleResolution": "bundler",
+    "resolveJsonModule": true,
+    "verbatimModuleSyntax": true,
+    "types": ["svelte", "vite/client"]
   }
 }

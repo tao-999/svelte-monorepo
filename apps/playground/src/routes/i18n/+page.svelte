@@ -1,24 +1,22 @@
 <script lang="ts">
   import { createI18nHot, HttpJsonAdapter } from '@svelte-kits/i18n-hot';
 
-  const i18n = createI18nHot({
+  const { t, setLocale, version, locale, dict } = createI18nHot({
     adapter: new HttpJsonAdapter({ manifestURL: '/i18n/manifest.json' }),
     initialLocale: 'zh-CN',
-    fallbackLocale: 'en',
-    preload: ['en'],
-    autoRefreshMs: 30_000
+    fallbackLocale: 'en'
   });
 
   let name = '骚哥';
 </script>
 
-<h2>i18n-hot</h2>
-<p>{$i18n.version ? `version: ${$i18n.version}` : 'version: (loading...)'}</p>
+<p class="muted">version: {$version ?? '(loading...)'} · locale: {$locale}</p>
 
-<p style="font-size:1.2rem">{i18n.t('hello', { name })}</p>
+{#key $locale + ':' + Object.keys($dict).length}
+  <p style="font-size:1.2rem; margin:0 0 .75rem 0">{t('hello', { name })}</p>
+{/key}
 
 <div style="display:flex;gap:.5rem">
-  <button on:click={() => i18n.setLocale('zh-CN')}>中文</button>
-  <button on:click={() => i18n.setLocale('en')}>EN</button>
-  <button on:click={() => i18n.refresh()}>手动 refresh()</button>
+  <button class="btn" on:click={() => setLocale('zh-CN')}>中文</button>
+  <button class="btn ghost" on:click={() => setLocale('en')}>EN</button>
 </div>

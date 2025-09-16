@@ -37,6 +37,9 @@ export function createI18nHot(opts: I18nHotOptions): I18nPublicAPI {
     manifestETag = cached.etag;
     $dicts.set(cached.dicts);
   }
+  // 恢复上次选择的语言（若有）
+  const savedLocale = readSavedLocale(persistKey);
+  if (savedLocale) $locale.set(savedLocale);
 
   const dict: Readable<Dict> = derived([$locale, $dicts], ([$l, $d]) => $d[$l] ?? {});
   const fallback = opts.fallbackLocale ?? null;
@@ -122,6 +125,8 @@ export function createI18nHot(opts: I18nHotOptions): I18nPublicAPI {
 
   async function setLocale(locale: string) {
     $locale.set(locale);
+    saveSavedLocale(persistKey, locale); // ★ 持久化当前语言
+
     // 保证 manifest
     await ensureManifest();
     // 先加载 fallback（减少闪烁）
@@ -183,6 +188,7 @@ export function createI18nHot(opts: I18nHotOptions): I18nPublicAPI {
     $version.set(snap.version);
     manifestETag = snap.etag;
     $locale.set(snap.current);
+    saveSavedLocale(persistKey, snap.current); // ★ hydrate 也同步当前语言
     // 不直接覆写：合并以便后续加载覆盖
     $dicts.set({ ...(get($dicts) ?? {}), ...(snap.dicts ?? {}) });
     // 覆写缓存（让 etag 接上）
@@ -194,8 +200,7 @@ export function createI18nHot(opts: I18nHotOptions): I18nPublicAPI {
     });
   }
 
-  // 初始化：保证当前语言可用
-  // 注意：调用方可手动 setLocale 触发；这里做“懒加载”
+  // 初始化：保证当前语言可用（懒加载）
   queueMicrotask(() => {
     const cur = get($locale);
     if (!get($dicts)[cur]) {
@@ -222,13 +227,13 @@ export function createI18nHot(opts: I18nHotOptions): I18nPublicAPI {
 }
 
 /* --------------------------------------------------------- */
-/* localStorage cache                                        */
+/* localStorage cache & helpers                              */
 /* --------------------------------------------------------- */
 function readCache(prefix: string): CacheShape | null {
   if (typeof window === "undefined") return null;
   try {
     const s = window.localStorage.getItem(`${prefix}:cache`);
-    return s ? JSON.parse(s) as CacheShape : null;
+    return s ? (JSON.parse(s) as CacheShape) : null;
   } catch { return null; }
 }
 
@@ -241,4 +246,14 @@ function saveCache(prefix: string, c: CacheShape) {
 
 function loadCache(prefix: string): CacheShape | null {
   return readCache(prefix);
+}
+
+// ★ 单独保存/恢复“当前语言”
+function readSavedLocale(prefix: string): string | null {
+  if (typeof window === "undefined") return null;
+  try { return window.localStorage.getItem(`${prefix}:current`); } catch { return null; }
+}
+function saveSavedLocale(prefix: string, locale: string) {
+  if (typeof window === "undefined") return;
+  try { window.localStorage.setItem(`${prefix}:current`, locale); } catch {}
 }
