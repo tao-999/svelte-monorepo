@@ -1,26 +1,35 @@
 {
   "name": "@svelte-kits/i18n-hot",
-  "version": "0.0.0",
-  "description": "i18n-hot (skeleton)",
+  "version": "0.1.0",
+  "description": "Hot-updatable i18n for Svelte: remote manifest, ETag/version checks, local cache, and Svelte stores.",
   "type": "module",
-  "svelte": "./src/index.ts",
   "exports": {
     ".": {
-      "svelte": "./src/index.ts",
-      "import": "./src/index.ts"
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
     }
   },
-  "types": "./src/index.ts",
-  "files": ["src", "README.md"],
+  "types": "./dist/index.d.ts",
+  "files": ["dist", "README.md"],
+  "sideEffects": false,
   "license": "MIT",
-  "publishConfig": { "access": "public" },
+  "keywords": ["svelte", "i18n", "internationalization", "localization", "hot-reload", "translations"],
   "scripts": {
-    "build": "tsc -p tsconfig.json --outDir dist && echo build-placeholder",
-    "dev": "echo dev-placeholder (use apps/playground)",
+    "build": "tsc -p tsconfig.json",
+    "dev": "echo use apps/playground for demos",
     "test": "echo no-tests"
+  },
+  "peerDependencies": {
+    "svelte": "^4.0.0 || ^5.0.0"
   },
   "devDependencies": {
     "svelte": "^5.0.0",
     "typescript": "^5.6.2"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }
