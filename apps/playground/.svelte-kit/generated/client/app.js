@@ -9,8 +9,7 @@ export const nodes = [
 	() => import('./nodes/5'),
 	() => import('./nodes/6'),
 	() => import('./nodes/7'),
-	() => import('./nodes/8'),
-	() => import('./nodes/9')
+	() => import('./nodes/8')
 ];
 
 export const server_loads = [];
@@ -22,8 +21,7 @@ export const dictionary = {
 		"/keep-route": [5],
 		"/query-kit": [6],
 		"/uploader-pro": [7],
-		"/web3-wallets": [8],
-		"/workerify": [9]
+		"/workerify": [8]
 	};
 
 export const hooks = {

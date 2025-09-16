@@ -5,8 +5,16 @@ async function sha256Hex(buf: ArrayBuffer) {
   return [...new Uint8Array(dig)].map(b => b.toString(16).padStart(2,'0')).join('');
 }
 
-function fib(n: number): number {
-  return n <= 1 ? n : fib(n - 1) + fib(n - 2);
+export function fib(n: number): number {
+  n = Math.max(0, Math.floor(n || 0));
+  if (n <= 1) return n;
+  let a = 0, b = 1;
+  for (let i = 2; i <= n; i++) {
+    const t = a + b;
+    a = b;
+    b = t;
+  }
+  return b;
 }
 
 expose({ sha256Hex, fib });

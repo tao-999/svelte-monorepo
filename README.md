@@ -15,7 +15,6 @@
 - **@svelte-kits/keep-route** — 路由级保活：为页面/组件生成状态快照并在返回时恢复，含滚动定位、include/exclude、LRU 与可选持久化。
 - **@svelte-kits/query-kit** — 无 UI 查询/缓存内核：并发去重、SWR、TTL/GC、重试退避、取消、失效、预取与 SSR 持久化。
 - **@svelte-kits/uploader-pro** — 弹性上传器：断点续传、分片/并发、去重与校验、持久化任务；内置 S3/HTTP 适配器，可扩展其他云。
-- **@svelte-kits/web3-wallets** — Web3 钱包核心：EIP-1193 连接器（Injected/External）、自动重连、链切换/添加、消息签名与交易发送、事件订阅。
 - **@svelte-kits/workerify** — 轻量 Worker RPC：`expose()`/`wrap()`/`workerify(fn)`，支持 Abort 取消、错误序列化与 Transferable 自动收集。
 
 ---
@@ -39,7 +38,6 @@
 │  ├─ keep-route/
 │  ├─ query-kit/
 │  ├─ uploader-pro/
-│  ├─ web3-wallets/
 │  └─ workerify/
 ├─ package.json
 ├─ pnpm-workspace.yaml
@@ -74,7 +72,6 @@ pnpm -r clean                  # 清理 dist（跨平台 Node 脚本）
   - `query-kit` 可与任何适配器/HTTP 工具配合，并可在 SSR `dehydrate/hydrate`；
   - `keep-route` 与表单/列表等页面搭配，增强回退体验；
   - `i18n-hot` 支持按版本/ETag 热更新；
-  - `web3-wallets` 仅负责状态与请求，UI 自行封装为 store/hook。
 
 ---
 

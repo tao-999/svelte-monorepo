@@ -26,7 +26,6 @@
     { href: '/keep-route',    label: 'keep-route',    match: (p: string) => p.startsWith('/keep-route') },
     { href: '/query-kit',     label: 'query-kit',     match: (p: string) => p.startsWith('/query-kit') },
     { href: '/uploader-pro',  label: 'uploader-pro',  match: (p: string) => p.startsWith('/uploader-pro') },
-    { href: '/web3-wallets',  label: 'web3-wallets',  match: (p: string) => p.startsWith('/web3-wallets') },
     { href: '/workerify',     label: 'workerify',     match: (p: string) => p.startsWith('/workerify') }
   ];
 </script>

@@ -27,7 +27,7 @@ export {};
 
 declare module "$app/types" {
 	export interface AppTypes {
-		RouteId(): "/" | "/a11y-keys" | "/i18n" | "/keep-route" | "/query-kit" | "/uploader-pro" | "/web3-wallets" | "/workerify";
+		RouteId(): "/" | "/a11y-keys" | "/i18n" | "/keep-route" | "/query-kit" | "/uploader-pro" | "/workerify";
 		RouteParams(): {
 			
 		};
@@ -38,10 +38,9 @@ declare module "$app/types" {
 			"/keep-route": Record<string, never>;
 			"/query-kit": Record<string, never>;
 			"/uploader-pro": Record<string, never>;
-			"/web3-wallets": Record<string, never>;
 			"/workerify": Record<string, never>
 		};
-		Pathname(): "/" | "/a11y-keys" | "/a11y-keys/" | "/i18n" | "/i18n/" | "/keep-route" | "/keep-route/" | "/query-kit" | "/query-kit/" | "/uploader-pro" | "/uploader-pro/" | "/web3-wallets" | "/web3-wallets/" | "/workerify" | "/workerify/";
+		Pathname(): "/" | "/a11y-keys" | "/a11y-keys/" | "/i18n" | "/i18n/" | "/keep-route" | "/keep-route/" | "/query-kit" | "/query-kit/" | "/uploader-pro" | "/uploader-pro/" | "/workerify" | "/workerify/";
 		ResolvedPathname(): `${"" | `/${string}`}${ReturnType<AppTypes['Pathname']>}`;
 		Asset(): "/i18n/en.json" | "/i18n/manifest.json" | "/i18n/zh-CN.json" | string & {};
 	}
