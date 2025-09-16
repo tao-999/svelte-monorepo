@@ -38,7 +38,14 @@ export class Web3Wallets {
     this.#storageKey = opts.storageKey ?? "web3:wallets:last";
     if (opts.autoConnect ?? true) {
       const last = typeof localStorage !== "undefined" ? localStorage.getItem(this.#storageKey) : null;
-      if (last) this.connect(last).catch(()=>{});
+      if (last) {
+        this.connect(last).catch(() => {
+          // ❗ autoConnect 失败也要回退到“未连接”状态
+          this.#unbind();
+          this.#provider = null;
+          this.#state.set({ status: "disconnected", accounts: [], chainId: undefined, provider: null, connectorId: null });
+        });
+      }
     }
   }
 
@@ -60,19 +67,29 @@ export class Web3Wallets {
     if (!c) throw new Error("Connector not found");
     if (!c.ready()) throw new Error(`Connector ${c.id} not ready`);
 
+    // 先置 connecting
     this.#state.set({ ...this.#state.get(), status: "connecting" });
-    const { provider, accounts, chainId } = await c.connect();
 
-    // 解绑旧监听，绑新监听
-    this.#unbind();
-    this.#bind(provider);
+    try {
+      const { provider, accounts, chainId } = await c.connect();
 
-    this.#provider = provider;
-    this.#state.set({ status: "connected", accounts, chainId, provider, connectorId: c.id });
+      // 解绑旧监听，绑新监听
+      this.#unbind();
+      this.#bind(provider);
 
-    try { localStorage?.setItem(this.#storageKey, c.id); } catch {}
+      this.#provider = provider;
+      this.#state.set({ status: "connected", accounts, chainId, provider, connectorId: c.id });
 
-    return this.#state.get();
+      try { localStorage?.setItem(this.#storageKey, c.id); } catch {}
+
+      return this.#state.get();
+    } catch (e) {
+      // ❗ 关键：失败必须回退
+      this.#unbind();
+      this.#provider = null;
+      this.#state.set({ status: "disconnected", accounts: [], chainId: undefined, provider: null, connectorId: null });
+      throw e;
+    }
   }
 
   async disconnect() {
@@ -118,7 +135,7 @@ export class Web3Wallets {
   }
 
   // —— 签名与交易 —— //
-   async signMessage(message: string | Uint8Array, from?: Address) {
+  async signMessage(message: string | Uint8Array, from?: Address) {
     if (!this.#provider) throw new Error("No provider");
     const addr = from ?? this.#state.get().accounts[0];
     if (!addr) throw new Error("No account");

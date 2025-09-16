@@ -10,8 +10,7 @@ export const nodes = [
 	() => import('./nodes/6'),
 	() => import('./nodes/7'),
 	() => import('./nodes/8'),
-	() => import('./nodes/9'),
-	() => import('./nodes/10')
+	() => import('./nodes/9')
 ];
 
 export const server_loads = [];
@@ -20,12 +19,11 @@ export const dictionary = {
 		"/": [2],
 		"/a11y-keys": [3],
 		"/i18n": [4],
-		"/keep-route/detail": [5],
-		"/keep-route/search": [6],
-		"/query-kit": [7],
-		"/uploader-pro": [8],
-		"/web3-wallets": [9],
-		"/workerify": [10]
+		"/keep-route": [5],
+		"/query-kit": [6],
+		"/uploader-pro": [7],
+		"/web3-wallets": [8],
+		"/workerify": [9]
 	};
 
 export const hooks = {

@@ -1,34 +1,38 @@
 <script lang="ts">
-  import { createKeepRoute, wireSvelteKit, makeKeepState } from '@svelte-kits/keep-route';
+  import { createKeepRoute, wireSvelteKit } from '@svelte-kits/keep-route';
   import { page } from '$app/stores';
   import { beforeNavigate, afterNavigate } from '$app/navigation';
 
-  // keep-route 接线
+  // ① 全局 keep 配置：只在 layout 接一次线
   const keep = createKeepRoute({
-    include: ['/**'],
-    exclude: ['/login/**'],
-    max: 20,
-    scroll: true,
-    persistKey: 'kr-demo'
+    include: ['/**'],           // 全站
+    exclude: ['/login/**'],     // 登录相关不保留
+    max: 20,                    // 最多 20 条历史
+    scroll: true,               // ⭐ 自动恢复滚动
+    persistKey: 'kr-demo'       // 会话键（可换）
   });
-  wireSvelteKit(keep, { page, beforeNavigate, afterNavigate });
-  export const keepState = makeKeepState(keep);
 
-  // 导航
+  // ② 浏览器环境仅接一次（HMR 防重入）
+  if (typeof window !== 'undefined' && !(window as any).__kr_wired__) {
+    wireSvelteKit(keep, { page, beforeNavigate, afterNavigate });
+    (window as any).__kr_wired__ = true;
+  }
+
+  // ③ 导航（保留你原来的）
   const nav = [
-    { href: '/', label: 'Home', match: (p: string) => p === '/' },
-    { href: '/a11y-keys', label: 'a11y-keys', match: (p: string) => p.startsWith('/a11y-keys') },
-    { href: '/i18n', label: 'i18n-hot', match: (p: string) => p.startsWith('/i18n') },
-    { href: '/keep-route/search', label: 'keep-route', match: (p: string) => p.startsWith('/keep-route') },
-    { href: '/query-kit', label: 'query-kit', match: (p: string) => p.startsWith('/query-kit') },
-    { href: '/uploader-pro', label: 'uploader-pro', match: (p: string) => p.startsWith('/uploader-pro') },
-    { href: '/web3-wallets', label: 'web3-wallets', match: (p: string) => p.startsWith('/web3-wallets') },
-    { href: '/workerify', label: 'workerify', match: (p: string) => p.startsWith('/workerify') }
+    { href: '/',              label: 'Home',          match: (p: string) => p === '/' },
+    { href: '/a11y-keys',     label: 'a11y-keys',     match: (p: string) => p.startsWith('/a11y-keys') },
+    { href: '/i18n',          label: 'i18n-hot',      match: (p: string) => p.startsWith('/i18n') },
+    { href: '/keep-route',    label: 'keep-route',    match: (p: string) => p.startsWith('/keep-route') },
+    { href: '/query-kit',     label: 'query-kit',     match: (p: string) => p.startsWith('/query-kit') },
+    { href: '/uploader-pro',  label: 'uploader-pro',  match: (p: string) => p.startsWith('/uploader-pro') },
+    { href: '/web3-wallets',  label: 'web3-wallets',  match: (p: string) => p.startsWith('/web3-wallets') },
+    { href: '/workerify',     label: 'workerify',     match: (p: string) => p.startsWith('/workerify') }
   ];
 </script>
 
 <svelte:head>
-  <!-- Google 字体（可选）：若不想联网，可删掉这两行 -->
+  <!-- 可选：Google 字体；不想联网可删 -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Roboto:wght@400;500;700&display=swap">
 </svelte:head>
@@ -185,6 +189,7 @@
     font-weight:600; cursor:pointer;
   }
   :global(.btn.ghost){
-    background: transparent; color: var(--primary); border-color: color-mix(in oklab, var(--primary) 35%, transparent);
+    background: transparent; color: var(--primary);
+    border-color: color-mix(in oklab, var(--primary) 35%, transparent);
   }
 </style>

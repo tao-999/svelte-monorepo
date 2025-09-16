@@ -15,16 +15,23 @@ export async function safeRequest<T = any>(provider: EIP1193Provider, args: Requ
   return provider.request(args);
 }
 
-/** 优先选出更具体的钱包（MetaMask > Coinbase > 第一个） */
+/** ✅ 统一处理单/多 provider；优先 MetaMask → Coinbase → 第一个 */
 export function pickInjectedProvider(): EIP1193Provider | null {
   const anyWin = isBrowser ? (window as any) : {};
-  let eth = anyWin.ethereum as EIP1193Provider | undefined;
-  if (!eth && Array.isArray(anyWin?.ethereum?.providers)) {
-    const arr = anyWin.ethereum.providers as EIP1193Provider[];
-    eth = arr.find((p: any) => p.isMetaMask) || arr.find((p: any) => p.isCoinbaseWallet) || arr[0];
+  let eth = anyWin.ethereum as any;
+
+  // 无论 eth 是否存在，都尝试读取 providers 数组（EIP-6963 多钱包）
+  const provs = Array.isArray(eth?.providers) ? eth.providers : null;
+  if (provs && provs.length) {
+    eth = provs.find((p: any) => p?.isMetaMask)
+       ?? provs.find((p: any) => p?.isCoinbaseWallet)
+       ?? provs[0];
   }
+
+  // 回退到单 provider
   if (!eth && anyWin.ethereum) eth = anyWin.ethereum;
-  return eth ?? null;
+
+  return (eth ?? null) as EIP1193Provider | null;
 }
 
 export function once<T extends (...a: any[]) => void>(fn: T): T {
