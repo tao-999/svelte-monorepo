@@ -1,0 +1,27 @@
+{
+  "name": "playground",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite dev",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@svelte-kits/a11y-keys": "workspace:^",
+    "@svelte-kits/i18n-hot": "workspace:^",
+    "@svelte-kits/keep-route": "workspace:*",
+    "@svelte-kits/llm-ui": "workspace:*",
+    "@svelte-kits/query-kit": "workspace:^",
+    "@svelte-kits/uploader-pro": "workspace:^",
+    "@svelte-kits/web3-wallets": "workspace:*",
+    "@svelte-kits/workerify": "workspace:^",
+    "@sveltejs/kit": "^2.7.4",
+    "@sveltejs/vite-plugin-svelte": "^4.0.0",
+    "svelte": "^5.0.0",
+    "vite": "^5.4.10"
+  },
+  "devDependencies": {
+    "typescript": "^5.6.2"
+  }
+}

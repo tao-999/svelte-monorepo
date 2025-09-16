@@ -1,0 +1,16 @@
+{
+  "name": "svelte-monorepo",
+  "private": true,
+  "packageManager": "pnpm@9.11.0",
+  "scripts": {
+    "dev": "pnpm -C apps/playground dev",
+    "build": "pnpm -r --filter ./packages... build && pnpm -C apps/playground build",
+    "changeset": "changeset",
+    "version-packages": "changeset version && pnpm i -w",
+    "publish-packages": "pnpm -r --filter ./packages... build && changeset publish"
+  },
+  "devDependencies": {
+    "@changesets/cli": "^2.27.9",
+    "typescript": "^5.6.2"
+  }
+}
