@@ -1,26 +1,35 @@
 {
   "name": "@svelte-kits/keep-route",
-  "version": "0.0.0",
-  "description": "keep-route (skeleton)",
+  "version": "0.1.0",
+  "description": "Route keep-alive for SvelteKit: per-route state snapshots, scroll restoration, include/exclude and LRU.",
   "type": "module",
-  "svelte": "./src/index.ts",
   "exports": {
     ".": {
-      "svelte": "./src/index.ts",
-      "import": "./src/index.ts"
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
     }
   },
-  "types": "./src/index.ts",
-  "files": ["src", "README.md"],
+  "types": "./dist/index.d.ts",
+  "files": ["dist", "README.md"],
+  "sideEffects": false,
   "license": "MIT",
-  "publishConfig": { "access": "public" },
+  "keywords": ["svelte", "sveltekit", "keep-alive", "route cache", "scroll restoration"],
   "scripts": {
-    "build": "tsc -p tsconfig.json --outDir dist && echo build-placeholder",
-    "dev": "echo dev-placeholder (use apps/playground)",
+    "clean": "node -e \"try{require('fs').rmSync('dist',{recursive:true,force:true})}catch{}\"",
+    "build": "tsc -p tsconfig.json",
     "test": "echo no-tests"
+  },
+  "peerDependencies": {
+    "svelte": "^4.0.0 || ^5.0.0"
   },
   "devDependencies": {
     "svelte": "^5.0.0",
     "typescript": "^5.6.2"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }
