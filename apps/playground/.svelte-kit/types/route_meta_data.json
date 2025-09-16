@@ -1,0 +1,20 @@
+{
+	"/": [],
+	"/a11y-keys": [],
+	"/i18n": [],
+	"/i18n/en.json": [
+		"src/routes/i18n/en.json/+server.ts"
+	],
+	"/i18n/manifest.json": [
+		"src/routes/i18n/manifest.json/+server.ts"
+	],
+	"/i18n/zh-CN.json": [
+		"src/routes/i18n/zh-CN.json/+server.ts"
+	],
+	"/keep-route/detail": [],
+	"/keep-route/search": [],
+	"/query-kit": [],
+	"/uploader-pro": [],
+	"/web3-wallets": [],
+	"/workerify": []
+}

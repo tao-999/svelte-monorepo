@@ -1,0 +1,1 @@
+export { default as component } from "../../../../src/routes/web3-wallets/+page.svelte";

@@ -4,10 +4,11 @@
   "packageManager": "pnpm@9.11.0",
   "scripts": {
     "dev": "pnpm -C apps/playground dev",
-    "build": "pnpm -r --filter ./packages... build && pnpm -C apps/playground build",
+    "build": "pnpm -r --filter \"./packages/*\" build",
+    "clean": "pnpm -r --filter \"./packages/*\" clean",
     "changeset": "changeset",
     "version-packages": "changeset version && pnpm i -w",
-    "publish-packages": "pnpm -r --filter ./packages... build && changeset publish"
+    "publish-packages": "pnpm -r --filter \"./packages/*\" build && changeset publish"
   },
   "devDependencies": {
     "@changesets/cli": "^2.27.9",

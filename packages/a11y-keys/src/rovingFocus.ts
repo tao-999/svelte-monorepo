@@ -1,4 +1,3 @@
-// packages/a11y-keys/src/rovingFocus.ts
 import type { Action } from './types';
 
 export type RovingOptions = {
@@ -23,49 +22,41 @@ function isFocusable(el: HTMLElement) {
   return !el.hasAttribute('disabled') && style.display !== 'none' && style.visibility !== 'hidden';
 }
 
-function setTabStops(items: HTMLElement[], current: number) {
-  items.forEach((el, i) => (el.tabIndex = i === current ? 0 : -1));
-}
-
 function getItems(node: HTMLElement, selector: string): HTMLElement[] {
   return Array.from(node.querySelectorAll<HTMLElement>(selector)).filter(isFocusable);
 }
 
 export const rovingFocus: Action<HTMLElement, RovingOptions | undefined> = (node, opts) => {
   let o: RovingOptions = { ...DEFAULTS, initial: 0, ...(opts ?? {}) };
+
   let items: HTMLElement[] = getItems(node, o.selector ?? DEFAULTS.selector);
   let current = Math.min(Math.max(o.initial ?? 0, 0), Math.max(items.length - 1, 0));
 
-  setTabStops(items, current);
+  // 防止 MO 自触发；以及 RAF 合批
+  let suppressMO = false;
+  let raf = 0;
 
-  const mo = new MutationObserver(() => {
-    items = getItems(node, o.selector ?? DEFAULTS.selector);
-    if (current >= items.length) current = items.length - 1;
-    if (current < 0) current = 0;
-    setTabStops(items, current);
-  });
-  mo.observe(node, {
-    subtree: true,
-    childList: true,
-    attributes: true,
-    attributeFilter: ['tabindex', 'style', 'class', 'disabled']
-  });
+  function applyTabStops() {
+    suppressMO = true;
+    for (let i = 0; i < items.length; i++) {
+      const desired = i === current ? 0 : -1;
+      if (items[i].tabIndex !== desired) items[i].tabIndex = desired;
+    }
+    suppressMO = false;
+  }
 
   function focusAt(i: number) {
     if (!items.length) return;
     current = i;
-    setTabStops(items, current);
+    applyTabStops();
     items[current]?.focus();
   }
 
   function move(delta: number) {
     if (!items.length) return;
     let next = current + delta;
-    if (o.loop ?? true) {
-      next = (next + items.length) % items.length;
-    } else {
-      next = Math.max(0, Math.min(items.length - 1, next));
-    }
+    if (o.loop ?? true) next = (next + items.length) % items.length;
+    else next = Math.max(0, Math.min(items.length - 1, next));
     focusAt(next);
   }
 
@@ -77,36 +68,22 @@ export const rovingFocus: Action<HTMLElement, RovingOptions | undefined> = (node
 
     switch (e.key) {
       case 'ArrowRight':
-        if (horiz) {
-          e.preventDefault();
-          move(+1);
-        }
+        if (horiz) { e.preventDefault(); move(+1); }
         break;
       case 'ArrowLeft':
-        if (horiz) {
-          e.preventDefault();
-          move(-1);
-        }
+        if (horiz) { e.preventDefault(); move(-1); }
         break;
       case 'ArrowDown':
-        if (vert) {
-          e.preventDefault();
-          move(+1);
-        }
+        if (vert) { e.preventDefault(); move(+1); }
         break;
       case 'ArrowUp':
-        if (vert) {
-          e.preventDefault();
-          move(-1);
-        }
+        if (vert) { e.preventDefault(); move(-1); }
         break;
       case 'Home':
-        e.preventDefault();
-        focusAt(0);
+        e.preventDefault(); focusAt(0);
         break;
       case 'End':
-        e.preventDefault();
-        focusAt(items.length - 1);
+        e.preventDefault(); focusAt(items.length - 1);
         break;
     }
   }
@@ -124,9 +101,30 @@ export const rovingFocus: Action<HTMLElement, RovingOptions | undefined> = (node
     const i = items.indexOf(t.closest(o.selector ?? DEFAULTS.selector) as HTMLElement);
     if (i >= 0 && i !== current) {
       current = i;
-      setTabStops(items, current);
+      applyTabStops();
     }
   }
+
+  // 初始态
+  applyTabStops();
+
+  // 仅监听「我们不控制」的变化，避免自触发：不监听 tabindex！
+  const mo = new MutationObserver(() => {
+    if (suppressMO) return;
+    cancelAnimationFrame(raf);
+    raf = requestAnimationFrame(() => {
+      items = getItems(node, o.selector ?? DEFAULTS.selector);
+      if (current >= items.length) current = Math.max(0, items.length - 1);
+      applyTabStops();
+    });
+  });
+  mo.observe(node, {
+    subtree: true,
+    childList: true,
+    attributes: true,
+    // ⚠️ 不要监听 'tabindex'；这些是我们自己写入的
+    attributeFilter: ['disabled', 'aria-disabled', 'hidden', 'style', 'class']
+  });
 
   node.addEventListener('keydown', onKeydown);
   node.addEventListener('click', onClick);
@@ -137,13 +135,14 @@ export const rovingFocus: Action<HTMLElement, RovingOptions | undefined> = (node
       o = { ...DEFAULTS, initial: o.initial, ...(next ?? {}) };
       items = getItems(node, o.selector ?? DEFAULTS.selector);
       current = Math.min(Math.max(o.initial ?? current ?? 0, 0), Math.max(items.length - 1, 0));
-      setTabStops(items, current);
+      applyTabStops();
     },
     destroy() {
       node.removeEventListener('keydown', onKeydown);
       node.removeEventListener('click', onClick);
       node.removeEventListener('focusin', onFocusin);
       mo.disconnect();
+      cancelAnimationFrame(raf);
     }
   };
 };
